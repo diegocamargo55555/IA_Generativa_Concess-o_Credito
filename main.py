@@ -1,6 +1,6 @@
 import random
 
-individuo = {
+ranges = {
     "serasa": (0, 1000),
     "renda": (0, 40000),
     "tempo_empregado": (0, 120),
@@ -10,10 +10,8 @@ individuo = {
     "numero_cartoes": (0, 5),
     "idade": (0, 120),
     "historico_inadimplencia": (0, 60),
-    "renda_ocupada": (-1, 0), # como a gente ia fazer msm
+    "renda_ocupada": (0, 1), # como a gente ia fazer msm
 }
-
-
 
 def fitness(individuo):
     serasa = individuo["serasa"] / 1000
@@ -24,15 +22,19 @@ def fitness(individuo):
     numero_cartoes = individuo["numero_cartoes"] / 5
     idade = individuo["idade"] / 120
     historico_inadimplencia = individuo["historico_inadimplencia"] / 60
-    renda_ocupada = (individuo["renda_ocupada"] + 1) / 1
+    renda_ocupada = (individuo["renda_ocupada"] + 1)
     
     return (serasa * 0.27 + renda* 0.22 + tempo_empregado* 0.17 + limite* 0.18 + patrimonio* 0.1 + numero_cartoes* 0.05 + idade* 0.03 - historico_inadimplencia* 0.25 - renda_ocupada* 0.20)
 
 
 def gerar_individuo():
     individuo = {}
+    inteiros = {"serasa", "tempo_empregado", "numero_cartoes", "idade", "historico_inadimplencia"}
     for key, (min_val, max_val) in ranges.items():
-        individuo[key] = random.uniform(min_val, max_val)
+        if key in inteiros:
+            individuo[key] = random.randint(min_val, max_val)
+        else:
+            individuo[key] = random.uniform(min_val, max_val)
     return individuo
 
 def gerar_populacao(n):
