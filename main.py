@@ -4,8 +4,7 @@ ranges = {
     "serasa": (0, 1000),
     "renda": (0, 40000),
     "tempo_empregado": (0, 120),
-    "limite": (0, 2.5),
-    #"limite": (10, 70000, float),
+    "limite": (10, 70000),
     "patrimonio": (0, 2000000),
     "numero_cartoes": (0, 5),
     "idade": (0, 120),
@@ -13,11 +12,15 @@ ranges = {
     "renda_ocupada": (0, 1), # como a gente ia fazer msm
 }
 
+def limite_porcentagem(limite, renda):
+    limiteP = (limite * 100) / renda 
+    return limiteP
+
 def fitness(individuo):
     serasa = individuo["serasa"] / 1000
     renda = individuo["renda"] / 40000
     tempo_empregado = individuo["tempo_empregado"] / 120
-    limite = individuo["limite"] / 2.5
+    limite = limite_porcentagem(individuo["limite"], individuo["renda"])
     patrimonio = individuo["patrimonio"] / 2000000
     numero_cartoes = individuo["numero_cartoes"] / 5
     idade = individuo["idade"] / 120
