@@ -14,7 +14,7 @@ ranges = {
 
 def limite_porcentagem(limite, renda):
     limiteP = (limite * 100) / renda 
-    return limiteP if limite < 2.5 else 2.5
+    return limiteP/2.5 if limite < 2.5 else 1
 
 def fitness(individuo):
     serasa = individuo["serasa"] / 1000
