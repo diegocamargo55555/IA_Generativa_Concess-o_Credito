@@ -1,4 +1,5 @@
 from suport import *
+from cruzamento import mult_cruzamentos 
 
 populacao = gerar_populacao(10)
 
@@ -16,4 +17,10 @@ for i, individuo in enumerate(populacao, 1):
     print(f'Fitness Score: {individuo["fitness"]*100:.4f}')
     mutacao(individuo)
     
+
+populacao.extend(mult_cruzamentos(populacao))
+
+print("\nApós cruzamento:\n")
+print_populacao(populacao)    
+
 
