@@ -1,4 +1,5 @@
 
+from operator import length_hint
 import random
 
 ranges = {
@@ -75,3 +76,12 @@ def mutacao(individuo):
     individuo[valores[pos2]] = random.randint(ranges[valores[pos2]][0], ranges[valores[pos2]][1]) if valores[pos2] in inteiros else random.uniform(ranges[valores[pos2]][0], ranges[valores[pos2]][1])
     individuo[valores[pos3]] = random.randint(ranges[valores[pos3]][0], ranges[valores[pos3]][1]) if valores[pos3] in inteiros else random.uniform(ranges[valores[pos3]][0], ranges[valores[pos3]][1])
     print(individuo)
+    
+def selecao(populacao):
+    delet = round((len(populacao)-(len(populacao)*0.7)))
+    i = 0
+    while(i<delet):
+        populacao.pop(i)
+        i = i+1
+    return populacao
+    

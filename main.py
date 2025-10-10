@@ -17,6 +17,10 @@ for i, individuo in enumerate(populacao, 1):
     print(f'Fitness Score: {individuo["fitness"]*100:.4f}')
     mutacao(individuo)
     
+populacao = selecao(populacao)
+print(len(populacao))
+
+    
 
 populacao.extend(mult_cruzamentos(populacao))
 
