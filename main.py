@@ -1,4 +1,5 @@
 from suport import *
+from cruzamento import mult_cruzamentos 
 
 
 populacao = gerar_populacao(10)
@@ -10,4 +11,10 @@ if len(populacao) > 0:
     ranking(populacao, 0, len(populacao) - 1)
 
 print_populacao(populacao)    
+
+populacao.extend(mult_cruzamentos(populacao))
+
+print("\nApós cruzamento:\n")
+print_populacao(populacao)    
+
 
