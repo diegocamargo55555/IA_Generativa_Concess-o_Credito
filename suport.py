@@ -61,5 +61,13 @@ def rankingAux(A,p,r):
         if A[j]["fitness"] <= x["fitness"]:
             i += 1
             A[i], A[j] = A[j], A[i]
-    A[i + 1], A[r] = A[r], A[i + 1]
+    A[i + 1], A[r] = A[r], A[i + 1] 
     return i + 1
+
+def print_populacao(populacao):
+    for i, individuo in enumerate(populacao, 1):
+        print(f"\n--- Individuo {i} ---")
+        for key, value in individuo.items():
+            print(f"{key}: {value:.2f}")
+        
+        print(f'Fitness Score: {individuo["fitness"]*100:.4f}')
