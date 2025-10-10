@@ -69,14 +69,17 @@ def mutacao(individuo):
     valores = ["serasa", "renda", "tempo_empregado", "limite", "patrimonio", "numero_cartoes", "idade", "historico_inadimplencia", "renda_ocupada"]
     inteiros = {"serasa", "tempo_empregado", "numero_cartoes", "idade", "historico_inadimplencia"}
     pos1, pos2, pos3 = random.sample(range(0, len(individuo)-1), k=3)
-    print(pos1, pos2, pos3)
-    print(individuo)
-    
     individuo[valores[pos1]] = random.randint(ranges[valores[pos1]][0], ranges[valores[pos1]][1]) if valores[pos1] in inteiros else random.uniform(ranges[valores[pos1]][0], ranges[valores[pos1]][1])
     individuo[valores[pos2]] = random.randint(ranges[valores[pos2]][0], ranges[valores[pos2]][1]) if valores[pos2] in inteiros else random.uniform(ranges[valores[pos2]][0], ranges[valores[pos2]][1])
     individuo[valores[pos3]] = random.randint(ranges[valores[pos3]][0], ranges[valores[pos3]][1]) if valores[pos3] in inteiros else random.uniform(ranges[valores[pos3]][0], ranges[valores[pos3]][1])
-    print(individuo)
-    
+    return individuo
+
+def loopMutacao(populacao, qntdMutacao):
+    arrMutacao = random.sample(range(0, len(populacao)), k=qntdMutacao)
+    for i in arrMutacao:
+        populacao[i] = mutacao(populacao[i])
+    return populacao 
+ 
 def selecao(populacao):
     delet = round((len(populacao)-(len(populacao)*0.7)))
     i = 0
@@ -84,4 +87,17 @@ def selecao(populacao):
         populacao.pop(i)
         i = i+1
     return populacao
-    
+
+def cruzamento(individuo1, individuo2):
+    filho = {}
+    for key in ranges.keys():
+        filho[key] = random.choice([individuo1[key], individuo2[key]])
+    return filho
+
+def loopCruzamento(populacao, qntdCruzamento):
+    arrCruzamento = random.sample(range(0, len(populacao)), k=qntdCruzamento)
+    i = 0
+    while(i < qntdCruzamento):
+        populacao.append(cruzamento(populacao[arrCruzamento[i]], populacao[arrCruzamento[i+1]]))
+        i += 2
+    return populacao
