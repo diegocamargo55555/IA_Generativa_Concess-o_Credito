@@ -14,3 +14,6 @@ for i, individuo in enumerate(populacao, 1):
         print(f"{key}: {value:.2f}")
     
     print(f'Fitness Score: {individuo["fitness"]*100:.4f}')
+    mutacao(individuo)
+    
+

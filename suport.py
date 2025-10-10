@@ -15,8 +15,8 @@ ranges = {
 }
 
 def limite_porcentagem(limite, renda):
-    limiteP = (limite * 100) / renda 
-    return limiteP/2.5 if limite < 2.5 else 1
+    limiteP = (limite) / renda 
+    return limiteP/2.5 if limiteP < 2.5 else 1
 
 def fitness(individuo):
     serasa = individuo["serasa"] / 1000
@@ -29,7 +29,7 @@ def fitness(individuo):
     historico_inadimplencia = individuo["historico_inadimplencia"] / 60
     renda_ocupada = (individuo["renda_ocupada"])
     
-    fitness =  (serasa * 0.27 + renda* 0.22 + tempo_empregado* 0.17 + limite* 0.18 + patrimonio* 0.1 + numero_cartoes* 0.05 + idade* 0.03 - historico_inadimplencia* 0.15 - renda_ocupada* 0.10)
+    fitness =  (serasa * 0.27 + renda* 0.22 + tempo_empregado* 0.17 + limite* 0.18 + patrimonio* 0.1 + numero_cartoes* 0.05 + idade* 0.03 - (historico_inadimplencia* 0.10 + renda_ocupada* 0.05))
     return fitness
 
 
@@ -63,3 +63,15 @@ def rankingAux(A,p,r):
             A[i], A[j] = A[j], A[i]
     A[i + 1], A[r] = A[r], A[i + 1]
     return i + 1
+
+def mutacao(individuo):
+    valores = ["serasa", "renda", "tempo_empregado", "limite", "patrimonio", "numero_cartoes", "idade", "historico_inadimplencia", "renda_ocupada"]
+    inteiros = {"serasa", "tempo_empregado", "numero_cartoes", "idade", "historico_inadimplencia"}
+    pos1, pos2, pos3 = random.sample(range(0, len(individuo)-1), k=3)
+    print(pos1, pos2, pos3)
+    print(individuo)
+    
+    individuo[valores[pos1]] = random.randint(ranges[valores[pos1]][0], ranges[valores[pos1]][1]) if valores[pos1] in inteiros else random.uniform(ranges[valores[pos1]][0], ranges[valores[pos1]][1])
+    individuo[valores[pos2]] = random.randint(ranges[valores[pos2]][0], ranges[valores[pos2]][1]) if valores[pos2] in inteiros else random.uniform(ranges[valores[pos2]][0], ranges[valores[pos2]][1])
+    individuo[valores[pos3]] = random.randint(ranges[valores[pos3]][0], ranges[valores[pos3]][1]) if valores[pos3] in inteiros else random.uniform(ranges[valores[pos3]][0], ranges[valores[pos3]][1])
+    print(individuo)
